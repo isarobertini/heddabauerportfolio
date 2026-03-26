@@ -1,34 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ArtPage } from "./pages/ArtPage";
+import { ArtworkPage } from "./pages/ArtworkPage";
+import { Page } from "./pages/Page";
+import { Navigation } from "./pages/Navigation";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <section id="center">
-        <div className="hero">
-
-        </div>
-        <div>
-          <h1 className="text-3xl font-bold underline text-center"> This will be Hedda bauers website</h1>
-
-        </div>
-
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-
-      </section>
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <Navigation />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <Routes>
+          <Route path="/" element={<ArtPage />} />
+          <Route path="/artwork/:slug" element={<ArtworkPage />} />
+          <Route path="/:slug" element={<Page />} /> {/* Generic page route */}
+        </Routes>
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
