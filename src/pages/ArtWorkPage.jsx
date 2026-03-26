@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { client } from "../lib/contentful";
 
-export const ArtworkPage = () => {
+export const ArtWorkPage = () => {
     const { slug } = useParams();
     const [artwork, setArtwork] = useState(null);
 
