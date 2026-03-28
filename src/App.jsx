@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ArtPage } from "./pages/ArtPage";
-import { ArtWorkPage } from "./pages/ArtWorkPage";
+import { ArtworkPage } from "./pages/ArtWorkPage";
 import { Page } from "./pages/Page";
 import { Navigation } from "./pages/Navigation";
 
@@ -11,7 +11,7 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <Routes>
           <Route path="/" element={<ArtPage />} />
-          <Route path="/artwork/:slug" element={<ArtWorkPage />} />
+          <Route path="/artwork/:slug" element={<ArtworkPage />} />
           <Route path="/:slug" element={<Page />} /> {/* Generic page route */}
         </Routes>
       </main>

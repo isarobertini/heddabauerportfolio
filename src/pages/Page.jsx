@@ -23,10 +23,10 @@ export const Page = () => {
     }, [slug]);
 
     const getHeroUrl = (mediaField) => {
-        if (mediaField && mediaField.fields && mediaField.fields.file) {
+        if (mediaField?.fields?.file) {
             return mediaField.fields.file.url;
         }
-        return "/cover-placeholder.png"; // fallback hero
+        return "/cover-placeholder.png";
     };
 
     if (!page) return <p>Loading…</p>;
@@ -37,19 +37,32 @@ export const Page = () => {
             {page.fields.heroimage && (
                 <div
                     className="w-full h-64 md:h-96 bg-cover bg-center flex items-center justify-center"
-                    style={{ backgroundImage: `url(${getHeroUrl(page.fields.heroimage)})` }}
+                    style={{
+                        backgroundImage: `url(${getHeroUrl(page.fields.heroimage)})`,
+                    }}
                 >
-                    <h1 className="text-4xl md:text-6xl text-white font-bold bg-black bg-opacity-50 p-4 rounded">
+                    <h1 className="text-4xl md:text-6xl text-white font-bold bg-black/50 p-4 rounded">
                         {page.fields.title}
                     </h1>
                 </div>
             )}
 
             {/* Page Content */}
-            <div className="max-w-3xl mx-auto px-4 py-8 prose">
-                {page.fields.content
-                    ? documentToReactComponents(page.fields.content)
-                    : <p>No content available</p>}
+            <div className="max-w-3xl mx-auto px-4 py-8">
+                <div className="prose prose-lg max-w-none">
+                    {page.fields.content ? (
+                        documentToReactComponents(page.fields.content)
+                    ) : (
+                        <p>No content available</p>
+                    )}
+                </div>
+                <div className="prose prose-lg max-w-none my-7" >
+                    {page.fields.exhibitions ? (
+                        documentToReactComponents(page.fields.exhibitions)
+                    ) : (
+                        <p>No content available</p>
+                    )}
+                </div>
             </div>
         </div>
     );
