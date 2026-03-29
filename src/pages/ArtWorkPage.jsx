@@ -72,7 +72,7 @@ export const ArtworkPage = () => {
                             if (!url) return null;
 
                             return (
-                                <div key={index} className="mb-15 border-b py-3">
+                                <div key={index} className="mb-15">
                                     {/* MEDIA */}
                                     {type === "image" && (
                                         <img

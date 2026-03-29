@@ -4,6 +4,7 @@ import { ArtworkPage } from "./pages/ArtWorkPage";
 import { Page } from "./pages/Page";
 import { Navigation } from "./pages/Navigation";
 import { Footer } from "./pages/Footer";
+import { ContactPage } from "./pages/ContactPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<ArtPage />} />
           <Route path="/artwork/:slug" element={<ArtworkPage />} />
           <Route path="/:slug" element={<Page />} /> {/* Generic page route */}
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
         <Footer />
       </main>

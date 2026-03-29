@@ -86,16 +86,27 @@ export const Navigation = () => {
                 })}
             </nav>
 
-            {/* HIDE HERO ON ARTWORK PAGE */}
+            {/* HERO + PHOTOGRAPHER (aligned with image) */}
             {!isArtworkPage &&
                 currentNav &&
                 getImageUrl(currentNav.fields.heroimage) && (
-                    <div className="w-full flex justify-center">
-                        <img
-                            src={getImageUrl(currentNav.fields.heroimage)}
-                            alt={currentNav.fields.label}
-                            className="lg:h-screen object-cover mb-20"
-                        />
+                    <div className="w-full flex flex-col items-center">
+
+                        <div className="flex flex-col">
+                            <img
+                                src={getImageUrl(currentNav.fields.heroimage)}
+                                alt={currentNav.fields.label}
+                                className="lg:h-screen object-cover mb-4 my-5 border-b"
+                            />
+
+                            {/* Photographer aligned to image left edge */}
+                            {currentNav.fields.photographer && (
+                                <div className="text-sm text-gray-500 mb-20">
+                                    {currentNav.fields.photographer}
+                                </div>
+                            )}
+                        </div>
+
                     </div>
                 )}
         </>
