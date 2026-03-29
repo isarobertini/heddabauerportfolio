@@ -62,7 +62,7 @@ export const ArtworkPage = () => {
 
                 {/* ARTWORKS */}
                 {exhibition.fields.artworks?.map((art, i) => (
-                    <div key={i} className="mb-30">
+                    <div key={i} className="">
 
                         {/* LOOP MEDIA + TEXT */}
                         {art.fields.media?.map((media, index) => {
@@ -72,7 +72,7 @@ export const ArtworkPage = () => {
                             if (!url) return null;
 
                             return (
-                                <div key={index} className="mb-10">
+                                <div key={index} className="mb-15 border-b py-3">
                                     {/* MEDIA */}
                                     {type === "image" && (
                                         <img
