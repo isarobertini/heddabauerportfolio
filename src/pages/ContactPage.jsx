@@ -30,14 +30,14 @@ export const ContactPage = () => {
     const { contact } = contactEntry.fields;
 
     return (
-        <div className="max-w-3xl mx-auto px-4 flex flex-col items-center text-center">
+        <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
 
-            <h1 className="text-2xl">Contact</h1>
+            <h1 className="text-3xl">Contact</h1>
 
             {contact && (
                 <a
                     href={`mailto:${contact}`}
-                    className="underline"
+                    className="underline py-2 text-xl"
                 >
                     {contact}
                 </a>

@@ -61,13 +61,13 @@ export const Navigation = () => {
         <>
             {/* HEADER */}
             {currentNav?.fields?.header && (
-                <h1 className="text-[#8c0013] text-6xl lg:text-8xl text-center mt-8 mb-4">
+                <h1 className="text-[#8c0013] text-6xl lg:text-8xl text-center mt-8 mb-4 underline">
                     {currentNav.fields.header}
                 </h1>
             )}
 
             {/* NAV */}
-            <nav className="font-roboto font-light w-full flex justify-center gap-8 py-4">
+            <nav className="font-roboto font-light w-full flex justify-center gap-8 py-7">
                 {navItems.map((item) => {
                     const isArt = !item.fields.slug || item.fields.slug === "art";
 
@@ -90,18 +90,18 @@ export const Navigation = () => {
             {!isArtworkPage &&
                 currentNav &&
                 getImageUrl(currentNav.fields.heroimage) && (
-                    <div className="w-full flex flex-col items-center">
+                    <div className="w-full flex flex-col items-center border-b-2 border-[#8c0013] pb-7 lg:pb-30">
 
                         <div className="flex flex-col">
                             <img
                                 src={getImageUrl(currentNav.fields.heroimage)}
                                 alt={currentNav.fields.label}
-                                className="lg:h-screen object-cover mb-4 my-5 border-b"
+                                className="lg:h-screen object-cover my-2"
                             />
 
                             {/* Photographer aligned to image left edge */}
                             {currentNav.fields.photographer && (
-                                <div className="text-sm text-gray-500 mb-20">
+                                <div className="text-sm text-gray-500 mx-4 lg:mx-0">
                                     {currentNav.fields.photographer}
                                 </div>
                             )}

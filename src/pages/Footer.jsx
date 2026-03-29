@@ -28,7 +28,7 @@ export const Footer = () => {
     const { contact, rightsReserved } = footer.fields;
 
     return (
-        <div className="mt-20 mb-3 border-t border-b py-3 text-sm font-light flex flex-col items-center gap-2">
+        <div className="mt-20 mb-3 border-t border-b border-[#8c0013] py-3 text-sm font-light flex flex-col items-center gap-2">
 
             {/* CONTACT EMAIL */}
             {contact && (

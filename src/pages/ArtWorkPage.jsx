@@ -62,9 +62,9 @@ export const ArtworkPage = () => {
 
                 {/* ARTWORKS */}
                 {exhibition.fields.artworks?.map((art, i) => (
-                    <div key={i} className="">
+                    <div key={i}>
 
-                        {/* LOOP MEDIA + TEXT */}
+                        {/* LOOP MEDIA */}
                         {art.fields.media?.map((media, index) => {
                             const url = getImageUrl(media);
                             const type = getMediaType(media);
@@ -73,6 +73,7 @@ export const ArtworkPage = () => {
 
                             return (
                                 <div key={index} className="mb-15">
+
                                     {/* MEDIA */}
                                     {type === "image" && (
                                         <img
@@ -118,6 +119,14 @@ export const ArtworkPage = () => {
                                             </p>
                                         )}
                                     </div>
+
+                                    {/* PHOTOGRAPHER (from artwork, not media) */}
+                                    {art.fields.photographer && (
+                                        <div className="text-sm text-gray-500 mt-1">
+                                            {art.fields.photographer}
+                                        </div>
+                                    )}
+
                                 </div>
                             );
                         })}
