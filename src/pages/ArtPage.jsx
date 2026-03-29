@@ -47,12 +47,12 @@ export const ArtPage = () => {
                 console.log("COVER URL:", coverUrl);
 
                 return (
-                    <div key={exh.sys.id} className="flex justify-center my-10">
+                    <div key={exh.sys.id} className="flex justify-center mb-20 lg:mb-30">
                         <Link to={`/artwork/${exh.fields.slug}`}>
 
                             {coverUrl ? (
                                 <img
-                                    className="h-screen object-cover"
+                                    className="lg:h-screen"
                                     src={coverUrl}
                                     alt={exh.fields.title}
                                 />
@@ -62,7 +62,7 @@ export const ArtPage = () => {
                                 </div>
                             )}
 
-                            <h2 className="mt-4 text-2xl">
+                            <h2 className="mt-4 font-light text-2xl">
                                 {exh.fields.title}
                             </h2>
                         </Link>

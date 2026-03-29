@@ -3,6 +3,7 @@ import { ArtPage } from "./pages/ArtPage";
 import { ArtworkPage } from "./pages/ArtWorkPage";
 import { Page } from "./pages/Page";
 import { Navigation } from "./pages/Navigation";
+import { Footer } from "./pages/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/artwork/:slug" element={<ArtworkPage />} />
           <Route path="/:slug" element={<Page />} /> {/* Generic page route */}
         </Routes>
+        <Footer />
       </main>
     </>
   );

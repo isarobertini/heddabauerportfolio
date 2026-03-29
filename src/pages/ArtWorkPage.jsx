@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../lib/contentful";
 
 export const ArtworkPage = () => {
-    const { slug }
-        = useParams();
+    const { slug } = useParams();
     const [exhibition, setExhibition] = useState(null);
 
     useEffect(() => {
@@ -34,40 +33,80 @@ export const ArtworkPage = () => {
         return url ? "https:" + url : null;
     };
 
+    const getMediaType = (media) => {
+        const contentType = media?.fields?.file?.contentType;
+
+        if (!contentType) return "unknown";
+
+        if (contentType.startsWith("image/")) return "image";
+        if (contentType.startsWith("video/")) return "video";
+        if (contentType.startsWith("audio/")) return "audio";
+        if (contentType === "application/pdf") return "pdf";
+
+        return "unknown";
+    };
+
     if (!exhibition) {
         return <div className="text-center mt-10">Loading exhibition...</div>;
     }
 
     return (
-        <div className="flex justify-center px-4">
-            {/* 🔥 container aligned left */}
+        <div className="flex justify-center font-light">
+            {/* container aligned left */}
             <div className="max-w-3xl w-full">
 
                 {/* TITLE */}
-                <h1 className="text-4xl my-10">
+                <h1 className="text-2xl my-10">
                     {exhibition.fields.title}
                 </h1>
 
                 {/* ARTWORKS */}
                 {exhibition.fields.artworks?.map((art, i) => (
-                    <div key={i} className="mb-16">
+                    <div key={i} className="mb-30">
 
-                        {/* 🔥 LOOP IMAGES + TEXT TOGETHER */}
-                        {art.fields.media?.map((img, index) => {
-                            const url = getImageUrl(img);
+                        {/* LOOP MEDIA + TEXT */}
+                        {art.fields.media?.map((media, index) => {
+                            const url = getImageUrl(media);
+                            const type = getMediaType(media);
 
                             if (!url) return null;
 
                             return (
                                 <div key={index} className="mb-10">
-                                    {/* IMAGE */}
-                                    <img
-                                        src={url}
-                                        alt={art.fields.title}
-                                        className="h-screen"
-                                    />
+                                    {/* MEDIA */}
+                                    {type === "image" && (
+                                        <img
+                                            src={url}
+                                            alt={art.fields.title}
+                                            className="lg:h-screen mx-auto"
+                                        />
+                                    )}
 
-                                    {/* 🔥 TEXT ALIGNED WITH IMAGE */}
+                                    {type === "video" && (
+                                        <video
+                                            src={url}
+                                            controls
+                                            className="lg:h-screen mx-auto"
+                                        />
+                                    )}
+
+                                    {type === "audio" && (
+                                        <audio
+                                            src={url}
+                                            controls
+                                            className="mx-auto w-full"
+                                        />
+                                    )}
+
+                                    {type === "pdf" && (
+                                        <iframe
+                                            src={url}
+                                            title={art.fields.title}
+                                            className="lg:h-screen mx-auto w-full"
+                                        />
+                                    )}
+
+                                    {/* TEXT */}
                                     <div className="mt-3">
                                         <h2 className="text-xl">
                                             {art.fields.title}
@@ -85,7 +124,7 @@ export const ArtworkPage = () => {
                     </div>
                 ))}
 
-                {/* 🔥 EXHIBITION DESCRIPTION ONLY ONCE */}
+                {/* EXHIBITION DESCRIPTION */}
                 {exhibition.fields.description && (
                     <div className="mt-20">
                         <p className="text-lg whitespace-pre-line">
