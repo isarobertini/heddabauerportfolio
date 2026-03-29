@@ -61,13 +61,13 @@ export const Navigation = () => {
         <>
             {/* HEADER */}
             {currentNav?.fields?.header && (
-                <h1 className="text-[#8c0013] text-6xl lg:text-8xl text-center mt-8 mb-4 underline">
+                <h1 className="text-[#8c0013] text-6xl lg:text-8xl text-center mt-8 mb-4">
                     {currentNav.fields.header}
                 </h1>
             )}
 
             {/* NAV */}
-            <nav className="font-roboto font-light w-full flex justify-center gap-8 py-7">
+            <nav className="font-roboto font-light px-4 w-full flex justify-center gap-8 py-7">
                 {navItems.map((item) => {
                     const isArt = !item.fields.slug || item.fields.slug === "art";
 
@@ -86,11 +86,11 @@ export const Navigation = () => {
                 })}
             </nav>
 
-            {/* HERO + PHOTOGRAPHER (aligned with image) */}
+            {/* HERO + PHOTOGRAPHER (aligned with image border-b-2 border-[#8c0013] ) */}
             {!isArtworkPage &&
                 currentNav &&
                 getImageUrl(currentNav.fields.heroimage) && (
-                    <div className="w-full flex flex-col items-center border-b-2 border-[#8c0013] pb-7 lg:pb-30">
+                    <div className="w-full flex px-4 flex-col items-center">
 
                         <div className="flex flex-col">
                             <img
@@ -101,11 +101,12 @@ export const Navigation = () => {
 
                             {/* Photographer aligned to image left edge */}
                             {currentNav.fields.photographer && (
-                                <div className="text-sm text-gray-500 mx-4 lg:mx-0">
+                                <div className="text-sm text-gray-500">
                                     {currentNav.fields.photographer}
                                 </div>
                             )}
                         </div>
+                        <div className="h-0.5 w-full lg:w-5/6 bg-[#8c0013] mt-10 lg:mt-20"></div>
 
                     </div>
                 )}

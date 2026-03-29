@@ -47,7 +47,7 @@ export const ArtPage = () => {
                 console.log("COVER URL:", coverUrl);
 
                 return (
-                    <div key={exh.sys.id} className="flex justify-center mb-20 lg:my-30">
+                    <div key={exh.sys.id} className="flex justify-center mt-15 lg:mt-30 mb-20">
                         <Link to={`/artwork/${exh.fields.slug}`}>
 
                             {coverUrl ? (

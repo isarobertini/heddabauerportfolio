@@ -32,7 +32,7 @@ export const ContactPage = () => {
     return (
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
 
-            <h1 className="text-3xl">Contact</h1>
+            <h1 className="font-light text-2xl pt-12">Contact</h1>
 
             {contact && (
                 <a

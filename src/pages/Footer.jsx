@@ -28,8 +28,8 @@ export const Footer = () => {
     const { contact, rightsReserved } = footer.fields;
 
     return (
-        <div className="mt-20 mb-3 border-t border-b border-[#8c0013] py-3 text-sm font-light flex flex-col items-center gap-2">
-
+        <div className="mt-20 mb-3 text-sm font-light flex flex-col items-center gap-2">
+            <div className="h-0.5 w-full lg:w-5/6 bg-[#8c0013]"></div>
             {/* CONTACT EMAIL */}
             {contact && (
                 <a href={`mailto:${contact}`} className="hover:underline">
@@ -43,7 +43,7 @@ export const Footer = () => {
                     {rightsReserved}
                 </div>
             )}
-
+            <div className="h-0.5 w-full lg:w-5/6 bg-[#8c0013]"></div>
         </div>
     );
 };

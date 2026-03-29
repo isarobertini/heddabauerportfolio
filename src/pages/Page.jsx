@@ -71,12 +71,12 @@ export const Page = () => {
             )}
 
             {/* CONTENT */}
-            <div className="max-w-3xl mx-auto px-4 py-12 space-y-12">
+            <div className="max-w-3xl mx-auto px-4 pt-7 pb-12 space-y-12">
 
                 {/* EDUCATION */}
                 <div>
                     {page.fields.educationTitle && (
-                        <h2 className="text-2xl mb-4">
+                        <h2 className="font-light text-2xl mb-4">
                             {documentToReactComponents(page.fields.educationTitle, options)}
                         </h2>
                     )}
@@ -91,7 +91,7 @@ export const Page = () => {
                 {/* EXHIBITIONS */}
                 <div>
                     {page.fields.exhibitionTitle && (
-                        <h2 className="text-2xl mb-4">
+                        <h2 className="font-light text-2xl mb-4">
                             {documentToReactComponents(page.fields.exhibitionTitle, options)}
                         </h2>
                     )}
