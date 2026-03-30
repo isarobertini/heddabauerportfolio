@@ -69,15 +69,16 @@ export const Navigation = () => {
             {/* NAV */}
             <nav className="font-roboto font-light px-4 w-full flex justify-center gap-8 py-7">
                 {navItems.map((item) => {
-                    const isArt = !item.fields.slug || item.fields.slug === "art";
+                    const isArt =
+                        !item.fields.slug || item.fields.slug === "art";
 
                     return (
                         <Link
                             key={item.sys.id}
                             to={isArt ? "/" : `/${item.fields.slug}`}
                             className={`text-3xl transition ${isActive(item)
-                                ? "underline"
-                                : "hover:underline"
+                                    ? "underline"
+                                    : "hover:underline"
                                 }`}
                         >
                             {item.fields.label}
@@ -86,30 +87,34 @@ export const Navigation = () => {
                 })}
             </nav>
 
-            {/* HERO + PHOTOGRAPHER (aligned with image border-b-2 border-[#8c0013] ) */}
+            {/* HERO (only NOT artwork page) */}
             {!isArtworkPage &&
                 currentNav &&
                 getImageUrl(currentNav.fields.heroimage) && (
                     <div className="w-full flex px-4 flex-col items-center">
-
                         <div className="flex flex-col">
                             <img
-                                src={getImageUrl(currentNav.fields.heroimage)}
+                                src={getImageUrl(
+                                    currentNav.fields.heroimage
+                                )}
                                 alt={currentNav.fields.label}
                                 className="lg:h-screen object-cover my-2"
                             />
 
-                            {/* Photographer aligned to image left edge */}
+                            {/* Photographer */}
                             {currentNav.fields.photographer && (
                                 <div className="text-sm text-gray-500">
                                     {currentNav.fields.photographer}
                                 </div>
                             )}
                         </div>
-                        <div className="h-0.5 w-full lg:w-5/6 bg-[#8c0013] mt-10 lg:mt-20"></div>
-
                     </div>
                 )}
+
+            {/* 🔴 ALWAYS SHOW DIVIDER */}
+            <div className="w-full flex justify-center px-4">
+                <div className="h-0.5 w-full lg:w-5/6 bg-[#8c0013] mt-10 lg:mt-20"></div>
+            </div>
         </>
     );
 };

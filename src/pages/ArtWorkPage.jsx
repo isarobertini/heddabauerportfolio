@@ -51,7 +51,9 @@ export const ArtworkPage = () => {
     }
 
     return (
+
         <div className="flex justify-center font-light">
+
             {/* container aligned left */}
             <div className="max-w-3xl w-full">
 

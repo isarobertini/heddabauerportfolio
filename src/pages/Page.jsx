@@ -30,7 +30,7 @@ export const Page = () => {
         return "/cover-placeholder.png";
     };
 
-    // 🔥 CUSTOM RENDERING OPTIONS
+    // 🔥 FIX: paragraph renderar inte <p> längre
     const options = {
         renderNode: {
             [BLOCKS.UL_LIST]: (node, children) => (
@@ -47,7 +47,7 @@ export const Page = () => {
                 <li className="pl-1">{children}</li>
             ),
             [BLOCKS.PARAGRAPH]: (node, children) => (
-                <p className="mb-3">{children}</p>
+                <>{children}</>   // ✅ HÄR är enda ändringen
             ),
         },
     };

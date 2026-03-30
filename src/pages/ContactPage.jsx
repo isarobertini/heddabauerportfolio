@@ -37,7 +37,7 @@ export const ContactPage = () => {
             {contact && (
                 <a
                     href={`mailto:${contact}`}
-                    className="underline py-2 text-xl"
+                    className="py-2 text-2xl"
                 >
                     {contact}
                 </a>
