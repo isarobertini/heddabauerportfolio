@@ -109,6 +109,13 @@ export const ArtworkPage = () => {
                                         />
                                     )}
 
+                                    {/* PHOTOGRAPHER (from artwork, not media) */}
+                                    {art.fields.photographer && (
+                                        <div className="text-sm text-gray-500 mt-1">
+                                            {art.fields.photographer}
+                                        </div>
+                                    )}
+
                                     {/* TEXT */}
                                     <div className="mt-3">
                                         <h2 className="text-xl">
@@ -122,12 +129,6 @@ export const ArtworkPage = () => {
                                         )}
                                     </div>
 
-                                    {/* PHOTOGRAPHER (from artwork, not media) */}
-                                    {art.fields.photographer && (
-                                        <div className="text-sm text-gray-500 mt-1">
-                                            {art.fields.photographer}
-                                        </div>
-                                    )}
 
                                 </div>
                             );

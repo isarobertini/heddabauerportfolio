@@ -26,7 +26,18 @@ export const Navigation = () => {
         return null;
     };
 
-    // 🔥 determine current page
+    const isActive = (slug) => {
+        if (!slug || slug === "art") {
+            return (
+                location.pathname === "/" ||
+                location.pathname.startsWith("/artwork")
+            );
+        }
+        return location.pathname === `/${slug}`;
+    };
+
+    const isArtworkPage = location.pathname.startsWith("/artwork");
+
     const currentNav = navItems.find((item) => {
         const slug = item.fields.slug;
 
@@ -40,22 +51,10 @@ export const Navigation = () => {
         return location.pathname === `/${slug}`;
     });
 
-    // 🔥 active nav item
-    const isActive = (item) => {
-        const slug = item.fields.slug;
-
-        if (!slug || slug === "art") {
-            return (
-                location.pathname === "/" ||
-                location.pathname.startsWith("/artwork")
-            );
-        }
-
-        return location.pathname === `/${slug}`;
+    const getPath = (slug) => {
+        if (!slug || slug === "art") return "/";
+        return `/${slug}`;
     };
-
-    // 🔥 detect artwork page
-    const isArtworkPage = location.pathname.startsWith("/artwork");
 
     return (
         <>
@@ -67,24 +66,56 @@ export const Navigation = () => {
             )}
 
             {/* NAV */}
-            <nav className="font-roboto font-light px-4 w-full flex justify-center gap-8 py-7">
-                {navItems.map((item) => {
-                    const isArt =
-                        !item.fields.slug || item.fields.slug === "art";
+            <nav className="w-full flex justify-center font-roboto font-light py-7">
+                <div className="flex items-center gap-6">
 
-                    return (
-                        <Link
-                            key={item.sys.id}
-                            to={isArt ? "/" : `/${item.fields.slug}`}
-                            className={`text-3xl transition ${isActive(item)
-                                    ? "underline"
-                                    : "hover:underline"
-                                }`}
-                        >
-                            {item.fields.label}
-                        </Link>
-                    );
-                })}
+                    {/* Art */}
+                    {navItems.find(
+                        (item) =>
+                            !item.fields.slug || item.fields.slug === "art"
+                    ) && (
+                            <Link
+                                to="/"
+                                className={`text-3xl transition ${isActive("art")
+                                        ? "underline"
+                                        : "hover:underline"
+                                    }`}
+                            >
+                                Art
+                            </Link>
+                        )}
+
+                    {/* Bio */}
+                    {navItems.find(
+                        (item) => item.fields.slug === "bio"
+                    ) && (
+                            <Link
+                                to="/bio"
+                                className={`text-3xl transition ${isActive("bio")
+                                        ? "underline"
+                                        : "hover:underline"
+                                    }`}
+                            >
+                                Bio
+                            </Link>
+                        )}
+
+                    {/* Contact */}
+                    {navItems.find(
+                        (item) => item.fields.slug === "contact"
+                    ) && (
+                            <Link
+                                to="/contact"
+                                className={`text-3xl transition ${isActive("contact")
+                                        ? "underline"
+                                        : "hover:underline"
+                                    }`}
+                            >
+                                Contact
+                            </Link>
+                        )}
+
+                </div>
             </nav>
 
             {/* HERO (only NOT artwork page) */}
@@ -111,7 +142,7 @@ export const Navigation = () => {
                     </div>
                 )}
 
-            {/* 🔴 ALWAYS SHOW DIVIDER */}
+            {/* DIVIDER */}
             <div className="w-full flex justify-center px-4">
                 <div className="h-0.5 w-full lg:w-5/6 bg-[#8c0013] mt-10 lg:mt-20"></div>
             </div>
