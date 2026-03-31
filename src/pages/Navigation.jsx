@@ -29,6 +29,11 @@ export const Navigation = () => {
         return location.pathname === `/${slug}`;
     };
 
+    const getPath = (slug) => {
+        if (!slug || slug === "art") return "/";
+        return `/${slug}`;
+    };
+
     const isArtworkPage = location.pathname.startsWith("/artwork");
 
     const currentNav = navItems.find((item) => {
@@ -44,10 +49,15 @@ export const Navigation = () => {
         return location.pathname === `/${slug}`;
     });
 
-    const getPath = (slug) => {
-        if (!slug || slug === "art") return "/";
-        return `/${slug}`;
-    };
+    const artItem = navItems.find(
+        (item) => !item.fields.slug || item.fields.slug === "art"
+    );
+    const bioItem = navItems.find(
+        (item) => item.fields.slug === "bio"
+    );
+    const contactItem = navItems.find(
+        (item) => item.fields.slug === "contact"
+    );
 
     return (
         <>
@@ -60,25 +70,46 @@ export const Navigation = () => {
 
             {/* NAV */}
             <nav className="w-full flex justify-center font-roboto font-light py-7">
-                <div className="">
+                <div className="grid grid-cols-3 w-full max-w-xs text-center items-center">
 
-                    {navItems.map((item) => {
-                        const slug = item.fields.slug;
-                        const label = item.fields.label;
+                    {/* ART */}
+                    {artItem && (
+                        <Link
+                            to="/"
+                            className={`text-3xl transition ${isActive("art")
+                                ? "underline"
+                                : "hover:underline"
+                                }`}
+                        >
+                            {artItem.fields.label}
+                        </Link>
+                    )}
 
-                        return (
-                            <Link
-                                key={item.sys.id}
-                                to={getPath(slug)}
-                                className={`text-3xl px-2 gap-4 lg:gap-6 transition ${isActive(slug)
-                                    ? "underline"
-                                    : "hover:underline"
-                                    }`}
-                            >
-                                {label}
-                            </Link>
-                        );
-                    })}
+                    {/* BIO */}
+                    {bioItem && (
+                        <Link
+                            to="/bio"
+                            className={`text-3xl transition ${isActive("bio")
+                                ? "underline"
+                                : "hover:underline"
+                                }`}
+                        >
+                            {bioItem.fields.label}
+                        </Link>
+                    )}
+
+                    {/* CONTACT */}
+                    {contactItem && (
+                        <Link
+                            to="/contact"
+                            className={`text-3xl transition ${isActive("contact")
+                                ? "underline"
+                                : "hover:underline"
+                                }`}
+                        >
+                            {contactItem.fields.label}
+                        </Link>
+                    )}
 
                 </div>
             </nav>
