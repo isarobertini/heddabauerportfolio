@@ -19,13 +19,6 @@ export const Navigation = () => {
         fetchNav();
     }, []);
 
-    const getImageUrl = (media) => {
-        if (media?.fields?.file?.url) {
-            return "https:" + media.fields.file.url;
-        }
-        return null;
-    };
-
     const isActive = (slug) => {
         if (!slug || slug === "art") {
             return (
@@ -67,53 +60,25 @@ export const Navigation = () => {
 
             {/* NAV */}
             <nav className="w-full flex justify-center font-roboto font-light py-7">
-                <div className="flex items-center gap-6">
+                <div className="">
 
-                    {/* Art */}
-                    {navItems.find(
-                        (item) =>
-                            !item.fields.slug || item.fields.slug === "art"
-                    ) && (
+                    {navItems.map((item) => {
+                        const slug = item.fields.slug;
+                        const label = item.fields.label;
+
+                        return (
                             <Link
-                                to="/"
-                                className={`text-3xl transition ${isActive("art")
-                                        ? "underline"
-                                        : "hover:underline"
+                                key={item.sys.id}
+                                to={getPath(slug)}
+                                className={`text-3xl px-2 gap-4 lg:gap-6 transition ${isActive(slug)
+                                    ? "underline"
+                                    : "hover:underline"
                                     }`}
                             >
-                                Art
+                                {label}
                             </Link>
-                        )}
-
-                    {/* Bio */}
-                    {navItems.find(
-                        (item) => item.fields.slug === "bio"
-                    ) && (
-                            <Link
-                                to="/bio"
-                                className={`text-3xl transition ${isActive("bio")
-                                        ? "underline"
-                                        : "hover:underline"
-                                    }`}
-                            >
-                                Bio
-                            </Link>
-                        )}
-
-                    {/* Contact */}
-                    {navItems.find(
-                        (item) => item.fields.slug === "contact"
-                    ) && (
-                            <Link
-                                to="/contact"
-                                className={`text-3xl transition ${isActive("contact")
-                                        ? "underline"
-                                        : "hover:underline"
-                                    }`}
-                            >
-                                Contact
-                            </Link>
-                        )}
+                        );
+                    })}
 
                 </div>
             </nav>
@@ -121,18 +86,18 @@ export const Navigation = () => {
             {/* HERO (only NOT artwork page) */}
             {!isArtworkPage &&
                 currentNav &&
-                getImageUrl(currentNav.fields.heroimage) && (
+                currentNav.fields.heroimage?.fields?.file?.url && (
                     <div className="w-full flex px-4 flex-col items-center">
                         <div className="flex flex-col">
                             <img
-                                src={getImageUrl(
-                                    currentNav.fields.heroimage
-                                )}
+                                src={
+                                    "https:" +
+                                    currentNav.fields.heroimage.fields.file.url
+                                }
                                 alt={currentNav.fields.label}
                                 className="lg:h-screen object-cover my-2"
                             />
 
-                            {/* Photographer */}
                             {currentNav.fields.photographer && (
                                 <div className="text-sm text-gray-500">
                                     {currentNav.fields.photographer}
