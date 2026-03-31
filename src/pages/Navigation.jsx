@@ -29,11 +29,6 @@ export const Navigation = () => {
         return location.pathname === `/${slug}`;
     };
 
-    const getPath = (slug) => {
-        if (!slug || slug === "art") return "/";
-        return `/${slug}`;
-    };
-
     const isArtworkPage = location.pathname.startsWith("/artwork");
 
     const currentNav = navItems.find((item) => {
@@ -70,7 +65,7 @@ export const Navigation = () => {
 
             {/* NAV */}
             <nav className="w-full flex justify-center font-roboto font-light py-7">
-                <div className="grid grid-cols-3 w-full max-w-xs text-center items-center">
+                <div className="flex justify-between items-center w-full max-w-xs">
 
                     {/* ART */}
                     {artItem && (
@@ -85,7 +80,7 @@ export const Navigation = () => {
                         </Link>
                     )}
 
-                    {/* BIO */}
+                    {/* BIO (center naturally) */}
                     {bioItem && (
                         <Link
                             to="/bio"
@@ -114,7 +109,7 @@ export const Navigation = () => {
                 </div>
             </nav>
 
-            {/* HERO (only NOT artwork page) */}
+            {/* HERO */}
             {!isArtworkPage &&
                 currentNav &&
                 currentNav.fields.heroimage?.fields?.file?.url && (
