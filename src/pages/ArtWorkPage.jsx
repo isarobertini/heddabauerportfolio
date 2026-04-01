@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { client } from "../lib/contentful";
+import { Helmet } from "react-helmet-async";
 
 export const ArtworkPage = () => {
     const { slug } = useParams();
@@ -47,105 +48,145 @@ export const ArtworkPage = () => {
     };
 
     if (!exhibition) {
-        return <div className="text-center mt-10">Loading exhibition...</div>;
+        return (
+            <>
+                <Helmet>
+                    <title>Loading exhibition | Hedda Bauer</title>
+                </Helmet>
+                <div className="text-center mt-10">Loading exhibition...</div>
+            </>
+        );
     }
 
     return (
+        <>
+            <Helmet>
+                <title>{exhibition.fields.title} | Hedda Bauer</title>
 
-        <div className="flex justify-center font-light">
+                <meta
+                    name="description"
+                    content={
+                        exhibition.fields.description || "Exhibition artwork"
+                    }
+                />
 
-            {/* container aligned left */}
-            <div className="max-w-3xl w-full">
+                {/* Open Graph */}
+                <meta property="og:title" content={exhibition.fields.title} />
+                <meta
+                    property="og:description"
+                    content={exhibition.fields.description || ""}
+                />
 
-                {/* TITLE */}
-                <h1 className="text-2xl my-10">
-                    {exhibition.fields.title}
-                </h1>
-
-                {/* ARTWORKS */}
-                {exhibition.fields.artworks?.map((art, i) => (
-                    <div key={i}>
-
-                        {/* LOOP MEDIA */}
-                        {art.fields.media?.map((media, index) => {
-                            const url = getImageUrl(media);
-                            const type = getMediaType(media);
-
-                            if (!url) return null;
-
-                            return (
-                                <div key={index} className="mb-15">
-
-                                    {/* MEDIA */}
-                                    {type === "image" && (
-                                        <img
-                                            src={url}
-                                            alt={art.fields.title}
-                                            className="lg:h-screen mx-auto"
-                                        />
-                                    )}
-
-                                    {type === "video" && (
-                                        <video
-                                            src={url}
-                                            controls
-                                            className="lg:h-screen mx-auto"
-                                        />
-                                    )}
-
-                                    {type === "audio" && (
-                                        <audio
-                                            src={url}
-                                            controls
-                                            className="mx-auto w-full"
-                                        />
-                                    )}
-
-                                    {type === "pdf" && (
-                                        <iframe
-                                            src={url}
-                                            title={art.fields.title}
-                                            className="lg:h-screen mx-auto w-full"
-                                        />
-                                    )}
-
-                                    {/* PHOTOGRAPHER (from artwork, not media) */}
-                                    {art.fields.photographer && (
-                                        <div className="text-sm text-gray-500 mt-1">
-                                            {art.fields.photographer}
-                                        </div>
-                                    )}
-
-                                    {/* TEXT */}
-                                    <div className="mt-3">
-                                        <h2 className="text-xl">
-                                            {art.fields.title}
-                                        </h2>
-
-                                        {art.fields.description && (
-                                            <p className="text-sm text-gray-600">
-                                                {art.fields.description}
-                                            </p>
-                                        )}
-                                    </div>
-
-
-                                </div>
-                            );
-                        })}
-                    </div>
-                ))}
-
-                {/* EXHIBITION DESCRIPTION */}
-                {exhibition.fields.description && (
-                    <div className="mt-20">
-                        <p className="text-lg whitespace-pre-line">
-                            {exhibition.fields.description}
-                        </p>
-                    </div>
+                {exhibition.fields.artworks?.[0]?.fields?.media?.[0] && (
+                    <meta
+                        property="og:image"
+                        content={getImageUrl(
+                            exhibition.fields.artworks[0].fields.media[0]
+                        )}
+                    />
                 )}
 
+                {/* Canonical URL */}
+                <link
+                    rel="canonical"
+                    href={`https://heddabauer.com/artwork/${slug}`}
+                />
+            </Helmet>
+
+            <div className="flex justify-center font-light">
+
+                {/* container aligned left */}
+                <div className="max-w-3xl w-full">
+
+                    {/* TITLE */}
+                    <h1 className="text-2xl my-10">
+                        {exhibition.fields.title}
+                    </h1>
+
+                    {/* ARTWORKS */}
+                    {exhibition.fields.artworks?.map((art, i) => (
+                        <div key={i}>
+
+                            {/* LOOP MEDIA */}
+                            {art.fields.media?.map((media, index) => {
+                                const url = getImageUrl(media);
+                                const type = getMediaType(media);
+
+                                if (!url) return null;
+
+                                return (
+                                    <div key={index} className="mb-15">
+
+                                        {/* MEDIA */}
+                                        {type === "image" && (
+                                            <img
+                                                src={url}
+                                                alt={`${art.fields.title} from exhibition ${exhibition.fields.title}`}
+                                                className="lg:h-screen mx-auto"
+                                            />
+                                        )}
+
+                                        {type === "video" && (
+                                            <video
+                                                src={url}
+                                                controls
+                                                className="lg:h-screen mx-auto"
+                                            />
+                                        )}
+
+                                        {type === "audio" && (
+                                            <audio
+                                                src={url}
+                                                controls
+                                                className="mx-auto w-full"
+                                            />
+                                        )}
+
+                                        {type === "pdf" && (
+                                            <iframe
+                                                src={url}
+                                                title={art.fields.title}
+                                                className="lg:h-screen mx-auto w-full"
+                                            />
+                                        )}
+
+                                        {/* PHOTOGRAPHER (from artwork, not media) */}
+                                        {art.fields.photographer && (
+                                            <div className="text-sm text-gray-500 mt-1">
+                                                {art.fields.photographer}
+                                            </div>
+                                        )}
+
+                                        {/* TEXT */}
+                                        <div className="mt-3">
+                                            <h2 className="text-xl">
+                                                {art.fields.title}
+                                            </h2>
+
+                                            {art.fields.description && (
+                                                <p className="text-sm text-gray-600">
+                                                    {art.fields.description}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ))}
+
+                    {/* EXHIBITION DESCRIPTION */}
+                    {exhibition.fields.description && (
+                        <div className="mt-20">
+                            <p className="text-lg whitespace-pre-line">
+                                {exhibition.fields.description}
+                            </p>
+                        </div>
+                    )}
+
+                </div>
             </div>
-        </div>
+        </>
     );
 };

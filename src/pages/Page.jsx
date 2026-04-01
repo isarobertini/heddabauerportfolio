@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
+import { Helmet } from "react-helmet-async";
 
 export const Page = () => {
     const { slug } = useParams();
@@ -47,63 +48,103 @@ export const Page = () => {
                 <li className="pl-1">{children}</li>
             ),
             [BLOCKS.PARAGRAPH]: (node, children) => (
-                <>{children}</>   // ✅ HÄR är enda ändringen
+                <>{children}</>
             ),
         },
     };
 
-    if (!page) return <p>Loading…</p>;
+    if (!page) {
+        return (
+            <>
+                <Helmet>
+                    <title>Loading page | Hedda Bauer</title>
+                </Helmet>
+                <p>Loading…</p>
+            </>
+        );
+    }
 
     return (
-        <div>
-            {/* HERO */}
-            {page.fields.heroimage && (
-                <div
-                    className="w-full h-64 md:h-96 bg-cover bg-center flex items-center justify-center"
-                    style={{
-                        backgroundImage: `url(${getHeroUrl(page.fields.heroimage)})`,
-                    }}
-                >
-                    <h1 className="text-4xl md:text-6xl text-white font-bold bg-black/50 p-4 ">
-                        {page.fields.title}
-                    </h1>
-                </div>
-            )}
+        <>
+            <Helmet>
+                <title>{page.fields.title} | Hedda Bauer</title>
 
-            {/* CONTENT */}
-            <div className="max-w-3xl mx-auto px-4 pt-7 pb-12 space-y-12">
+                <meta
+                    name="description"
+                    content="Bio | Hedda Bauer"
+                />
 
-                {/* EDUCATION */}
-                <div>
-                    {page.fields.educationTitle && (
-                        <h2 className="font-light text-2xl mb-4">
-                            {documentToReactComponents(page.fields.educationTitle, options)}
-                        </h2>
-                    )}
+                {/* Open Graph */}
+                <meta property="og:title" content={page.fields.title} />
+                <meta
+                    property="og:description"
+                    content="Bio | Hedda Bauer"
+                />
 
-                    <div className="font-light">
-                        {page.fields.education
-                            ? documentToReactComponents(page.fields.education, options)
-                            : <p>No education content</p>}
+                {page.fields.heroimage && (
+                    <meta
+                        property="og:image"
+                        content={getHeroUrl(page.fields.heroimage)}
+                    />
+                )}
+
+                {/* Canonical URL */}
+                <link
+                    rel="canonical"
+                    href={`https://heddabauer.com/${slug}`}
+                />
+            </Helmet>
+
+            <div>
+                {/* HERO */}
+                {page.fields.heroimage && (
+                    <div
+                        className="w-full h-64 md:h-96 bg-cover bg-center flex items-center justify-center"
+                        style={{
+                            backgroundImage: `url(${getHeroUrl(page.fields.heroimage)})`,
+                        }}
+                    >
+                        <h1 className="text-4xl md:text-6xl text-white font-bold bg-black/50 p-4 ">
+                            {page.fields.title}
+                        </h1>
                     </div>
-                </div>
+                )}
 
-                {/* EXHIBITIONS */}
-                <div>
-                    {page.fields.exhibitionTitle && (
-                        <h2 className="font-light text-2xl mb-4">
-                            {documentToReactComponents(page.fields.exhibitionTitle, options)}
-                        </h2>
-                    )}
+                {/* CONTENT */}
+                <div className="max-w-3xl mx-auto px-4 pt-7 pb-12 space-y-12">
 
-                    <div className="font-light">
-                        {page.fields.exhibitions
-                            ? documentToReactComponents(page.fields.exhibitions, options)
-                            : <p>No exhibitions content</p>}
+                    {/* EDUCATION */}
+                    <div>
+                        {page.fields.educationTitle && (
+                            <h2 className="font-light text-2xl mb-4">
+                                {documentToReactComponents(page.fields.educationTitle, options)}
+                            </h2>
+                        )}
+
+                        <div className="font-light">
+                            {page.fields.education
+                                ? documentToReactComponents(page.fields.education, options)
+                                : <p>No education content</p>}
+                        </div>
                     </div>
-                </div>
 
+                    {/* EXHIBITIONS */}
+                    <div>
+                        {page.fields.exhibitionTitle && (
+                            <h2 className="font-light text-2xl mb-4">
+                                {documentToReactComponents(page.fields.exhibitionTitle, options)}
+                            </h2>
+                        )}
+
+                        <div className="font-light">
+                            {page.fields.exhibitions
+                                ? documentToReactComponents(page.fields.exhibitions, options)
+                                : <p>No exhibitions content</p>}
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
+        </>
     );
 };
