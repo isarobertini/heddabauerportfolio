@@ -43,7 +43,7 @@ export const ArtPage = () => {
     return (
         <>
             <Helmet>
-                <title>Art | Hedda Bauer</title>
+                <title>Hedda Bauer</title>
 
                 <meta
                     name="description"

@@ -51,7 +51,7 @@ export const ArtworkPage = () => {
         return (
             <>
                 <Helmet>
-                    <title>Loading exhibition | Hedda Bauer</title>
+                    <title> Hedda Bauer</title>
                 </Helmet>
                 <div className="text-center mt-10">Loading exhibition...</div>
             </>

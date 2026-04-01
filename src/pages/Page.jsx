@@ -57,7 +57,7 @@ export const Page = () => {
         return (
             <>
                 <Helmet>
-                    <title>Loading page | Hedda Bauer</title>
+                    <title>Bio | Hedda Bauer</title>
                 </Helmet>
                 <p>Loading…</p>
             </>
